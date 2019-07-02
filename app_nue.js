@@ -7,7 +7,7 @@ var settings = {
 	totalClips  : 5,
 	pathToClips : "data/",
 	pbRate : 1,
-	mode : 'non-repeating-rand',
+	mode : 'shuffle',
 
 }
 
@@ -56,6 +56,15 @@ setInterval(function(){ //Check to see if its time to switch to the next video
 }, 100); //keep this a bit slower so it dosent trigger multiple times
 
 
+function range(start, end) {
+	var list = [];
+	for (var i = start; i <= end; i++) {
+		list.push(i);
+	}
+}
+
+var shuffleDeck = range(1, settings.totalClips);
+
 function toggle(element, pElement){
 	//start playing before the clip comes to the front.
 	element.get(0).play();
@@ -77,6 +86,16 @@ function toggle(element, pElement){
 
 			getRand = linearTracker
 			console.log(linearTracker);
+		}
+		
+		if(settings.mode == 'shuffle') {
+			if (shuffleDeck.length == 0) {
+				shuffleDeck = range(1, settings.totalClips);
+			}
+			
+			var index = Math.floor(Math.random() * shuffleDeck.length);
+			getRand = shuffleDeck[index];
+			shuffleDeck.splice(index, 1);
 		}
 
 		if(settings.mode == 'non-repeating-rand'){
