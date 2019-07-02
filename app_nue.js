@@ -61,6 +61,7 @@ function range(start, end) {
 	for (var i = start; i <= end; i++) {
 		list.push(i);
 	}
+	return list;
 }
 
 var shuffleDeck = range(1, settings.totalClips);
